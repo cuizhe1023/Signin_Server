@@ -27,8 +27,9 @@ public class DruidConfig {
         return new DruidDataSource();
     }
 
-    //配置 Druid 的监控
-    //1.配置一个管理后台的 servlet
+    // 配置 Druid 的监控
+    // 1.配置一个管理后台的 servlet
+    // url: ip:8080/druid
     @Bean
     public ServletRegistrationBean statViewServlet(){
         ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
@@ -42,7 +43,7 @@ public class DruidConfig {
         return bean;
     }
 
-    //2.配置一个 web 监控的 filter
+    // 2.配置一个 web 监控的 filter
     @Bean
     public FilterRegistrationBean webStatFilter(){
         FilterRegistrationBean bean = new FilterRegistrationBean();

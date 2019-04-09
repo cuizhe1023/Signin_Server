@@ -9,12 +9,12 @@ import org.apache.ibatis.annotations.Select;
  * @Date: 2019/4/9 11:03
  */
 public interface TeacherMapper {
-    @Select("SELECT * FROM teacher WHERE id=#{teacherid}")
-    public Teacher getTeacherById(String teacherid);
+    @Select("SELECT * FROM teacher WHERE teacherId=#{teacherId}")
+    Teacher getTeacherById(String teacherId);
 
-    @Select("SELECT * FROM teacher WHERE teacherId=#{teacherId} and teacherPassword=#{teacherPassword}")
-    public Teacher getByTeacherIdAndTeacherPassword(String teacherId,String teacherPassword);
+    @Select("SELECT * FROM teacher WHERE teacherId=#{teacherId} AND teacherPassword=#{teacherPassword}")
+    Teacher getTeacherByTeacherIdAndTeacherPassword(String teacherId,String teacherPassword);
 
     @Insert("INSERT INTO teacher VALUES(#{teacherId},#{teacherName},#{teacherPassword})")
-    public int insertTeacher(Teacher teacher);
+    int insertTeacher(Teacher teacher);
 }

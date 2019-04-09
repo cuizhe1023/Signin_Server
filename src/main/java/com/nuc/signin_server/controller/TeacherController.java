@@ -10,33 +10,36 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Author: cuizhe
  * @Date: 2019/4/9 11:04
+ * @Description:
  */
 @RestController
 public class TeacherController {
+
     @Autowired
     TeacherService teacherService;
 
-    @RequestMapping("doLogin")
+    @RequestMapping("teacherLogin")
     @ResponseBody
-    public Teacher doLogin(Teacher teacher){
+    public Teacher teacherLogin(Teacher teacher){
 
-        Teacher result = teacherService.getByTeacherIdAndTeacherPassword(teacher.getTeacherId(),teacher.getTeacherPassword());
+        Teacher result = teacherService.getTeacherByIdAndPassword(teacher.getTeacherId(),teacher.getTeacherPassword());
         if (result != null){
-            System.out.println(result.toString() + "登录了！");
+            System.out.println("老师：" + result.toString() + "登录了！");
             return result;
         }else {
             return null;
         }
     }
 
-    @RequestMapping("doRegist")
+    @RequestMapping("teacherRegister")
     @ResponseBody
-    public String doRegist(Teacher teacher){
+    public String teacherRegister(Teacher teacher){
         String result = "该账号已注册，请使用此账号直接登录或使用其他账号注册";
         int res = 0;
         try{
-            res = teacherService.add(teacher);
+            res = teacherService.insertTeacher(teacher);
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println(result);
         }
         if (res != 0){
