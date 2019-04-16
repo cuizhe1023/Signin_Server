@@ -20,6 +20,6 @@ public interface StudentMapper {
     @Insert("INSERT INTO student VALUES(#{studentId},#{studentName},#{studentPassword},#{classId},#{gender},#{macAddress})")
     int insertStudent(Student student);
 
-    @Update("UPDATE student SET macAddress=#{macAddress} WHERE studentId=#{studentId}")
-    int updateMacAddress(String studentId,String macAddress);
+    @Update("UPDATE student SET serialNumber=#{serialNumber} WHERE studentId=#{studentId}")
+    int updateMacAddress(Student student);
 }

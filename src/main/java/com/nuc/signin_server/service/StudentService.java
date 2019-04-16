@@ -28,8 +28,8 @@ public class StudentService {
         return studentMapper.getStudentByStudentId(id);
     }
 
-    public int updateStudentMacAddress(String studentId,String macAddress){
-        return studentMapper.updateMacAddress(studentId,macAddress);
+    public int updateStudentMacAddress(Student student){
+        return studentMapper.updateMacAddress(student);
     }
 
 }

@@ -22,5 +22,5 @@ public class Student implements Serializable {
 
     private String gender;
 
-    private String macAddress;
+    private String serialNumber;
 }
