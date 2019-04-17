@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @Author: cuizhe
  * @Date: 2019/4/16 19:23
@@ -31,5 +33,11 @@ public class CourseController {
             return course;
         }
         return null;
+    }
+
+    @RequestMapping("createList")
+    public List<Course> getAll(String teacherId){
+        List<Course> list= courseService.getCourseList(teacherId);
+        return list;
     }
 }
