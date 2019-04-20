@@ -1,7 +1,12 @@
 package com.nuc.signin_server.controller;
 
 import com.nuc.signin_server.entity.Course;
+import com.nuc.signin_server.entity.SelectCourse;
 import com.nuc.signin_server.service.CourseService;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,7 +52,10 @@ public class CourseController {
     }
 
     @RequestMapping("/upload")
-    public String upload(@RequestParam(value="file",required=false)MultipartFile file){
+    public List<SelectCourse> upload(@RequestParam(value="file",required=false)MultipartFile file,
+                                @RequestParam(value = "courseId")Integer courseId){
+
+        System.out.println("courseId = " + courseId);
         //获取上传文件名,包含后缀
         String originalFilename = file.getOriginalFilename();
         //获取后缀
@@ -55,7 +64,7 @@ public class CourseController {
         String dFileName = UUID.randomUUID()+substring;
         //保存路径
         //springboot 默认情况下只能加载 resource文件夹下静态资源文件
-        String path = "D:/image/";
+        String path = "D:/excel/";
         //生成保存文件
         File uploadFile = new File(path+dFileName);
         System.out.println(uploadFile);
@@ -65,6 +74,46 @@ public class CourseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "上传" + dFileName + "成功";
+
+        List<SelectCourse> selectCourseList = excel(uploadFile,courseId);
+        for (SelectCourse selectCourse :
+                selectCourseList) {
+            System.out.println(selectCourse.toString());
+        }
+        return selectCourseList;
+    }
+
+    public List<SelectCourse> excel(File excelFile, Integer courseId){
+        List<SelectCourse> selectCourseList = new LinkedList<SelectCourse>();
+        try {
+            //创建 workbook,并指定路径
+            Workbook workbook = Workbook.getWorkbook(excelFile);
+            //获取 sheet 页
+            Sheet sheet = workbook.getSheet(0);
+            // 获取数据
+            for (int i = 1; i < sheet.getRows(); i++) {
+                SelectCourse selectCourse = new SelectCourse();
+                for (int j = 0; j < sheet.getColumns(); j++) {
+                    Cell cell = sheet.getCell(j,i);//获取单元格
+                    selectCourse.setCourseId(courseId);
+                    if (j == 0){
+                        selectCourse.setStudentId(cell.getContents());
+                    }
+                    if (j == 1){
+                        selectCourse.setStudentName(cell.getContents());
+                    }
+                    if (j == 2){
+                        selectCourse.setGender(cell.getContents());
+                    }
+                }
+                selectCourseList.add(selectCourse);
+            }
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
+        return selectCourseList;
     }
 }

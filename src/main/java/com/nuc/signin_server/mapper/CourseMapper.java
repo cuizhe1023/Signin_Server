@@ -14,10 +14,11 @@ import java.util.List;
  */
 public interface CourseMapper {
 
-    @Insert("INSERT INTO course(ClassId,CourseName,CourseTime,TeacherId,TeacherName) VALUES(#{classId},#{courseName},#{courseTime},#{teacherId},#{teacherName})")
+    @Insert("INSERT INTO course(ClassId,CourseName,CourseTime,TeacherId,TeacherName) "+
+            "VALUES(#{classId},#{courseName},#{courseTime},#{teacherId},#{teacherName})")
     @Options(useGeneratedKeys = true, keyProperty = "courseId", keyColumn = "CourseId")
     int insertCourse(Course course);
 
     @Select("SELECT * FROM course WHERE TeacherId=#{teacherId}")
-    List<Course> getCourseListByTeacherId(String teahcerId);
+    List<Course> getCourseListByTeacherId(String teacherId);
 }
