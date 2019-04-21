@@ -25,4 +25,8 @@ public class CourseService {
     public List<Course> getCourseList(String teacherId){
         return courseMapper.getCourseListByTeacherId(teacherId);
     }
+
+    public List<Course> getStudentCourseList(String studentId){
+        return courseMapper.getStudentCourseListByStudentId(studentId);
+    }
 }

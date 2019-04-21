@@ -116,4 +116,10 @@ public class CourseController {
         }
         return selectCourseList;
     }
+
+    @RequestMapping("studentCourse")
+    public List<Course> getStudentCourseList(String studentId){
+        List<Course> list= courseService.getStudentCourseList(studentId);
+        return list;
+    }
 }
