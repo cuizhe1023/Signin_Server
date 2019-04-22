@@ -12,7 +12,6 @@
 
     <groupId>com.nuc</groupId>
     <artifactId>signin_server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>signin_server</name>
     <description>Graduation Project Server for Spring Boot</description>
 
