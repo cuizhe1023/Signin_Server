@@ -24,6 +24,6 @@ public interface CourseMapper {
 
     @Select("SELECT a.* " +
             "FROM course AS a,select_course AS b " +
-            "WHERE a.CourseId=b.CourseId  AND b.StudentId=#{studentId}")
+            "WHERE a.CourseId=b.CourseId AND b.StudentId=#{studentId}")
     List<Course> getStudentCourseListByStudentId(String studentId);
 }

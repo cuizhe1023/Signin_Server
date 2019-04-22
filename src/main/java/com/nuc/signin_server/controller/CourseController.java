@@ -64,7 +64,7 @@ public class CourseController {
         String dFileName = UUID.randomUUID()+substring;
         //保存路径
         //springboot 默认情况下只能加载 resource文件夹下静态资源文件
-        String path = "D:/excel/";
+        String path = "/code/Signin_Server/upload";
         //生成保存文件
         File uploadFile = new File(path+dFileName);
         System.out.println(uploadFile);
