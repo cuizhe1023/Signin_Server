@@ -25,12 +25,4 @@ public interface SelectCourseMapper {
 
     @Select("SELECT COUNT(StudentId) FROM select_course WHERE CourseId=#{courseId}")
     int getStudentSum(String courseId);
-
-    /*
-    SELECT DISTINCT a.ClassId,a.CourseId,a.CourseName,a.TeacherName
-FROM course AS a,select_course AS b
-WHERE a.CourseId=b.CourseId AND a.CourseId=6
-     */
-    @Select("SELECT CourseId FORM select_course WHERE StudentId=#{studentId}")
-    List<Course> getStudentCourse(String studentId);
 }

@@ -2,8 +2,6 @@ package com.nuc.signin_server.entity;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * @Author: cuizhe
  * @Date: 2019/4/22 14:32
@@ -15,9 +13,11 @@ public class SignIn {
 
     String teacherId;
 
+    String teacherName;
+
     Integer courseId;
 
-    Date signDate;
+    String signDate;
 
     Integer arriveNumber;
 
