@@ -23,16 +23,36 @@ public interface StudentSignInMapper {
 
     @Update("UPDATE student_signin " +
             "SET SignStatus=1,SignInDate=#{signDate}" +
-            "WHERE StudentId=#{studentId} AND SignInId=#{signInId}")
+            "WHERE SignInId=#{signInId} AND StudentId=#{studentId}")
     int updateStatus(String studentId, String signDate, Integer signInId);
 
     @Select("SELECT Id,SignInId,StudentId,StudentName,SignInDate,SignStatus " +
             "FROM student_signin " +
-            "WHERE StudentId=#{studentId} AND SignInId=#{signInId}")
+            "WHERE SignInId=#{signInId} AND StudentId=#{studentId}")
     Student_SignIn findByIdAndSignId(String studentId, Integer signInId);
 
     @Select("SELECT Id,SignInId,StudentId,StudentName,SignInDate,SignStatus " +
             "FROM student_signin " +
             "WHERE SignInId=#{signInId} AND SignStatus=0")
-    List<Student_SignIn> getNoSignInStudent(String signInId);
+    List<Student_SignIn> getNoSignInStudent(Integer signInId);
+
+    @Select("SELECT Id,SignInId,StudentId,StudentName,SignInDate,SignStatus " +
+            "FROM student_signin " +
+            "WHERE SignInId=#{signInId} AND SignStatus=1")
+    List<Student_SignIn> getSignInStudent(Integer signInId);
+
+    @Select("SELECT COUNT(StudentId) " +
+            "FROM student_signin " +
+            "WHERE SignInId=#{signInId} AND SignStatus=0")
+    int getCountNoSignInStudentNumber(Integer signInId);
+
+    @Select("SELECT COUNT(StudentId) " +
+            "FROM student_signin " +
+            "WHERE SignInId=#{signInId} AND SignStatus=1")
+    int getCountSignInStudentNumber(Integer signInId);
+
+    @Update("UPDATE student_signin " +
+            "SET LeaveReason=#{leaveReason} " +
+            "WHERE SignInId=#{signInId} AND StudentId=#{studentId}")
+    int updateReason(Integer signInId, String studentId, String leaveReason);
 }

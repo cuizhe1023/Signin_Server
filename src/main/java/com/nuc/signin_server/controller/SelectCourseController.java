@@ -52,7 +52,7 @@ public class SelectCourseController {
 
     @RequestMapping("studentSum")
     public JSONObject getStudentSumByCourseId(String courseId){
-        HashMap<String,Object> map = new HashMap();
+        HashMap<String,Object> map = new HashMap<>();
         map.put("sum", selectCourseService.getStudentSum(courseId));
         JSONObject json = new JSONObject(map);
         return json;

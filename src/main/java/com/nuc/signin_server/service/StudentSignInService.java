@@ -30,7 +30,23 @@ public class StudentSignInService {
         return studentSignInMapper.findByIdAndSignId(studentId,signInId);
     }
 
-    public List<Student_SignIn> getNoSignInStudent(String signInId){
+    public List<Student_SignIn> getNoSignInStudent(Integer signInId){
         return studentSignInMapper.getNoSignInStudent(signInId);
+    }
+
+    public List<Student_SignIn> getSignInStudent(Integer signInId){
+        return studentSignInMapper.getSignInStudent(signInId);
+    }
+
+    public int updateReason(Integer signInId, String studentId, String leaveReason){
+        return studentSignInMapper.updateReason(signInId,studentId,leaveReason);
+    }
+
+    public int getCountNoSignInStudentNumber(Integer signInId){
+        return studentSignInMapper.getCountNoSignInStudentNumber(signInId);
+    }
+
+    public int getCountSignInStudentNumber(Integer signInId){
+        return studentSignInMapper.getCountSignInStudentNumber(signInId);
     }
 }
