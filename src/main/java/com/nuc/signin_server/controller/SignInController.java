@@ -63,6 +63,10 @@ public class SignInController {
     @RequestMapping("getSignInList")
     public List<SignIn> getSignInList(Integer courseId){
         List<SignIn> list = signInService.getSignInList(courseId);
+        for (SignIn signIn :
+                list) {
+            System.out.println(signIn.toString());
+        }
         System.out.println("获取 "+courseId+" 课的签到的信息");
         return list;
     }

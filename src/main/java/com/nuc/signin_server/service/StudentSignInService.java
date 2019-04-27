@@ -49,4 +49,8 @@ public class StudentSignInService {
     public int getCountSignInStudentNumber(Integer signInId){
         return studentSignInMapper.getCountSignInStudentNumber(signInId);
     }
+
+    public String getLeaveReason(Integer signInId, String studentId){
+        return studentSignInMapper.getLeaveReason(signInId,studentId);
+    }
 }

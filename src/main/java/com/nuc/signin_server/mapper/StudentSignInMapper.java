@@ -55,4 +55,7 @@ public interface StudentSignInMapper {
             "SET LeaveReason=#{leaveReason} " +
             "WHERE SignInId=#{signInId} AND StudentId=#{studentId}")
     int updateReason(Integer signInId, String studentId, String leaveReason);
+
+    @Select("SELECT LeaveReason FROM student_signin WHERE SignInId=#{signInId} AND StudentId=#{studentId}")
+    String getLeaveReason(Integer signInId, String studentId);
 }

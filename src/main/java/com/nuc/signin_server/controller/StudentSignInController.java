@@ -67,17 +67,17 @@ public class StudentSignInController {
         return null;
     }
 
-    @RequestMapping("getNoSignInStudentList")
+    @RequestMapping("getNoSignInStudentList")// 显示没有签到的学生
     public List<Student_SignIn> getNoSignInStudent(Integer signInId) {
         List<Student_SignIn> list = studentSignInService.getNoSignInStudent(signInId);
         System.out.println("没有签到的学生的信息");
         return list;
     }
 
-    @RequestMapping("getSignInStudentList")
+    @RequestMapping("getSignInStudentList")// 显示签到了的学生
     public List<Student_SignIn> getSignInStudent(Integer signInId) {
         List<Student_SignIn> list = studentSignInService.getSignInStudent(signInId);
-        System.out.println("没有签到的学生的信息");
+        System.out.println("签到的学生的信息");
         return list;
     }
 
@@ -99,7 +99,7 @@ public class StudentSignInController {
         return null;
     }
 
-    @RequestMapping("getNoSignInStudentNumber")
+    @RequestMapping("getNoSignInStudentNumber")// 显示没有签到的学生的数目
     public JSONObject getCountNoSignInStudentNumber(Integer signInId){
         HashMap<String,Object> map = new HashMap<>();
         map.put("noSignIn",studentSignInService.getCountNoSignInStudentNumber(signInId));
@@ -107,10 +107,19 @@ public class StudentSignInController {
         return json;
     }
 
-    @RequestMapping("getSignInStudentNumber")
+    @RequestMapping("getSignInStudentNumber")// 显示签到了的学生的数目
     public JSONObject getCountSignInStudentNumber(Integer signInId){
         HashMap<String,Object> map = new HashMap<>();
         map.put("signIn",studentSignInService.getCountSignInStudentNumber(signInId));
+        JSONObject json = new JSONObject(map);
+        return json;
+    }
+
+    @RequestMapping("getLeaveReason")
+    public JSONObject getLeaveReason(Integer signInId, String studentId){
+        String result = studentSignInService.getLeaveReason(signInId,studentId);
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("leaveReason",result);
         JSONObject json = new JSONObject(map);
         return json;
     }
