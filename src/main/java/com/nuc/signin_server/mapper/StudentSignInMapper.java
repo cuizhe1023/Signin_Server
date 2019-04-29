@@ -33,12 +33,12 @@ public interface StudentSignInMapper {
 
     @Select("SELECT Id,SignInId,StudentId,StudentName,SignInDate,SignStatus " +
             "FROM student_signin " +
-            "WHERE SignInId=#{signInId} AND SignStatus=0")
+            "WHERE SignInId=#{signInId} AND SignStatus=0  ORDER BY StudentId")
     List<Student_SignIn> getNoSignInStudent(Integer signInId);
 
     @Select("SELECT Id,SignInId,StudentId,StudentName,SignInDate,SignStatus " +
             "FROM student_signin " +
-            "WHERE SignInId=#{signInId} AND SignStatus=1")
+            "WHERE SignInId=#{signInId} AND SignStatus=1 ORDER BY StudentId")
     List<Student_SignIn> getSignInStudent(Integer signInId);
 
     @Select("SELECT COUNT(StudentId) " +
