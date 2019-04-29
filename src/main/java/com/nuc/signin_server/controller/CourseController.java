@@ -1,5 +1,6 @@
 package com.nuc.signin_server.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.nuc.signin_server.entity.Course;
 import com.nuc.signin_server.entity.SelectCourse;
 import com.nuc.signin_server.service.CourseService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -123,5 +125,23 @@ public class CourseController {
     public List<Course> getStudentCourseList(String studentId){
         List<Course> list= courseService.getStudentCourseList(studentId);
         return list;
+    }
+
+    @RequestMapping("deleteCourse")
+    public JSONObject deleteCourse(Integer courseId){
+        int res = 0;
+        try {
+            res = courseService.deleteCourse(courseId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (res != 0){
+            System.out.println("删除课程成功");
+            HashMap<String,Object> map = new HashMap<>();
+            map.put("success",res);
+            return new JSONObject(map);
+        }
+        System.out.println("删除课程失败");
+        return null;
     }
 }

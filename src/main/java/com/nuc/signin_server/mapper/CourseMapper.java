@@ -1,6 +1,7 @@
 package com.nuc.signin_server.mapper;
 
 import com.nuc.signin_server.entity.Course;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
@@ -26,4 +27,7 @@ public interface CourseMapper {
             "FROM course AS a,select_course AS b " +
             "WHERE a.CourseId=b.CourseId AND b.StudentId=#{studentId}")
     List<Course> getStudentCourseListByStudentId(String studentId);
+
+    @Delete("DELETE FROM course WHERE CourseId=#{courseId}")
+    int deleteCourse(Integer courseId);
 }

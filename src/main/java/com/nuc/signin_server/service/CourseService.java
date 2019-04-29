@@ -29,4 +29,8 @@ public class CourseService {
     public List<Course> getStudentCourseList(String studentId){
         return courseMapper.getStudentCourseListByStudentId(studentId);
     }
+
+    public int deleteCourse(Integer courseId){
+        return courseMapper.deleteCourse(courseId);
+    }
 }
