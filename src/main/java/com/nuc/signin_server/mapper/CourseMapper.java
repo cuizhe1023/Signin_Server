@@ -1,10 +1,7 @@
 package com.nuc.signin_server.mapper;
 
 import com.nuc.signin_server.entity.Course;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -30,4 +27,9 @@ public interface CourseMapper {
 
     @Delete("DELETE FROM course WHERE CourseId=#{courseId}")
     int deleteCourse(Integer courseId);
+
+    @Update("UPDATE course " +
+            "SET TemplatePath=#{filePath} " +
+            "WHERE CourseId=#{courseId}")
+    int updateStudentList(Integer courseId, String filePath);
 }

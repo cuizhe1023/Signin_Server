@@ -20,4 +20,6 @@ public class Course {
     String teacherId;
 
     String teacherName;
+
+    String TemplatePath;
 }

@@ -33,4 +33,8 @@ public class CourseService {
     public int deleteCourse(Integer courseId){
         return courseMapper.deleteCourse(courseId);
     }
+
+    public int updateStudentList(Integer courseId, String filePath){
+        return courseMapper.updateStudentList(courseId,filePath);
+    }
 }
