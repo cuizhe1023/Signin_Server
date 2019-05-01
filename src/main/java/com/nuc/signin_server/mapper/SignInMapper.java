@@ -27,4 +27,9 @@ public interface SignInMapper {
 
     @Select("SELECT * FROM signin WHERE CourseId=#{courseId}")
     List<SignIn> getSignInList(Integer courseId);
+
+    @Select("SELECT SignInId " +
+            "FROM signin " +
+            "WHERE CourseId=#{courseId}")
+    List<Integer> getSignInIdList(Integer courseId);
 }

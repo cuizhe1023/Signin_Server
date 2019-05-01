@@ -67,18 +67,21 @@ public class CourseController {
         String dFileName = UUID.randomUUID() + substring;
         //保存路径
         //springboot 默认情况下只能加载 resource文件夹下静态资源文件
-        // String path = "/code/Signin_Server/upload"; // linux 上的文件
-         String path = "D:\\excel\\"; // windows上的文件
+         String path = "/code/Signin_Server/NameList/"; // linux 上的文件
+//         String path = "D:\\NameList\\"; // windows上的文件
         //生成保存文件
         File uploadFile = new File(path + dFileName);
         System.out.println("文件：" + uploadFile);
         System.out.println("文件路径：" + uploadFile.getPath());
 
         // 将文件保存在数据库中.
-        courseService.updateStudentList(courseId,uploadFile.getPath());
+        int res = 0;
+        res = courseService.updateStudentList(courseId,uploadFile.getPath());
         //将上传文件保存到路径
         try {
-            file.transferTo(uploadFile);
+            if (res != 0){
+                file.transferTo(uploadFile);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

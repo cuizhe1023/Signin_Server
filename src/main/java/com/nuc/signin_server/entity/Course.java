@@ -21,5 +21,7 @@ public class Course {
 
     String teacherName;
 
-    String TemplatePath;
+    String nameListPath;
+
+    String scoreListPath;
 }

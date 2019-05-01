@@ -29,4 +29,8 @@ public class SignInService {
     public List<SignIn> getSignInList(Integer courseId){
         return signInMapper.getSignInList(courseId);
     }
+
+    public List<Integer> getSignInIdList(Integer courseId){
+        return signInMapper.getSignInIdList(courseId);
+    }
 }

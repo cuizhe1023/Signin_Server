@@ -23,11 +23,11 @@ public class SelectCourseService {
         return selectCourseMapper.insertSelectCourse(selectCourse);
     }
 
-    public List<SelectCourse> getStudentList(String courseId){
+    public List<SelectCourse> getStudentList(Integer courseId){
         return selectCourseMapper.getCourseListByTeacherId(courseId);
     }
 
-    public int getStudentSum(String courseId){
+    public int getStudentSum(Integer courseId){
         return selectCourseMapper.getStudentSum(courseId);
     }
 }

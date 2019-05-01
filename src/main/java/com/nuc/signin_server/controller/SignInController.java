@@ -70,4 +70,14 @@ public class SignInController {
         System.out.println("获取 "+courseId+" 课的签到的信息");
         return list;
     }
+
+    @RequestMapping("getSignInIdList")
+    public HashMap<String,Object> getSignInIdList(Integer courseId){
+        List<Integer> list = signInService.getSignInIdList(courseId);
+        HashMap<String,Object> map = new HashMap<>();
+        for (int i = 0; i < list.size(); i++) {
+            map.put(String.valueOf(i+1),list.get(i));
+        }
+        return map;
+    }
 }

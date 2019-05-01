@@ -30,6 +30,7 @@ public class SelectCourseController {
         } catch (Exception e) {
             System.out.println("添加学生信息失败.");
             e.printStackTrace();
+            return null;
         }
         if (res != 0){
             System.out.println("添加学生信息成功：\n" + selectCourse.toString());
@@ -39,7 +40,7 @@ public class SelectCourseController {
     }
 
     @RequestMapping("studentList")
-    public List<SelectCourse> getStudentListByCourseId(String courseId){
+    public List<SelectCourse> getStudentListByCourseId(Integer courseId){
         List<SelectCourse> list = selectCourseService.getStudentList(courseId);
         System.out.println("选修了 " + courseId + " 的学生信息：");
         for (SelectCourse selectCourse :
@@ -51,7 +52,7 @@ public class SelectCourseController {
     }
 
     @RequestMapping("studentSum")
-    public JSONObject getStudentSumByCourseId(String courseId){
+    public JSONObject getStudentSumByCourseId(Integer courseId){
         HashMap<String,Object> map = new HashMap<>();
         map.put("sum", selectCourseService.getStudentSum(courseId));
         JSONObject json = new JSONObject(map);

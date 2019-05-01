@@ -21,8 +21,8 @@ public interface SelectCourseMapper {
     int insertSelectCourse(SelectCourse selectCourse);
 
     @Select("SELECT StudentId,StudentName,Gender FROM select_course WHERE CourseId=#{courseId} ORDER BY StudentId")
-    List<SelectCourse> getCourseListByTeacherId(String courseId);
+    List<SelectCourse> getCourseListByTeacherId(Integer courseId);
 
     @Select("SELECT COUNT(StudentId) FROM select_course WHERE CourseId=#{courseId}")
-    int getStudentSum(String courseId);
+    int getStudentSum(Integer courseId);
 }

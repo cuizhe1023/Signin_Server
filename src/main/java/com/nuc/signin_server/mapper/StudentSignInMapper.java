@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -58,4 +59,7 @@ public interface StudentSignInMapper {
 
     @Select("SELECT LeaveReason FROM student_signin WHERE SignInId=#{signInId} AND StudentId=#{studentId}")
     String getLeaveReason(Integer signInId, String studentId);
+
+    @Select("SELECT StudentId,SignStatus FROM student_signin WHERE SignInId=#{signInId} ORDER BY StudentId")
+    List<Student_SignIn> getSignInResult(Integer signInId);
 }

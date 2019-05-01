@@ -37,4 +37,12 @@ public class CourseService {
     public int updateStudentList(Integer courseId, String filePath){
         return courseMapper.updateStudentList(courseId,filePath);
     }
+
+    public int updateScoreList(Integer courseId, String filePath){
+        return courseMapper.updateScoreList(courseId,filePath);
+    }
+
+    public String getNameListPath(Integer courseId){
+        return courseMapper.getNameListPath(courseId);
+    }
 }

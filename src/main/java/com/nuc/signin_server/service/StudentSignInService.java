@@ -5,6 +5,7 @@ import com.nuc.signin_server.mapper.StudentSignInMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -52,5 +53,9 @@ public class StudentSignInService {
 
     public String getLeaveReason(Integer signInId, String studentId){
         return studentSignInMapper.getLeaveReason(signInId,studentId);
+    }
+
+    public List<Student_SignIn> getSignInResult(Integer signInId){
+        return studentSignInMapper.getSignInResult(signInId);
     }
 }

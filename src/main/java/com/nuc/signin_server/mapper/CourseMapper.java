@@ -29,7 +29,15 @@ public interface CourseMapper {
     int deleteCourse(Integer courseId);
 
     @Update("UPDATE course " +
-            "SET TemplatePath=#{filePath} " +
+            "SET NameListPath=#{filePath} " +
             "WHERE CourseId=#{courseId}")
     int updateStudentList(Integer courseId, String filePath);
+
+    @Select("SELECT NameListPath FROM course WHERE CourseId=#{courseId}")
+    String getNameListPath(Integer courseId);
+
+    @Update("UPDATE course " +
+            "SET ScoreListPath=#{filePath} " +
+            "WHERE CourseId=#{courseId}")
+    int updateScoreList(Integer courseId, String filePath);
 }
