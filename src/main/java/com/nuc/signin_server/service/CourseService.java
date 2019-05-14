@@ -18,6 +18,10 @@ public class CourseService {
     @Autowired
     CourseMapper courseMapper;
 
+    public Course select(Integer courseId){
+        return courseMapper.select(courseId);
+    }
+
     public int insertCourse(Course course){
         return courseMapper.insertCourse(course);
     }

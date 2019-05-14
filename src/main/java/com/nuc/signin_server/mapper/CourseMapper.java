@@ -12,6 +12,11 @@ import java.util.List;
  */
 public interface CourseMapper {
 
+    @Select("SELECT * " +
+            "FROM course " +
+            "WHERE CourseId=#{courseId}")
+    Course select(Integer courseId);
+
     @Insert("INSERT INTO course(ClassId,CourseName,CourseTime,TeacherId,TeacherName) "+
             "VALUES(#{classId},#{courseName},#{courseTime},#{teacherId},#{teacherName})")
     @Options(useGeneratedKeys = true, keyProperty = "courseId", keyColumn = "CourseId")

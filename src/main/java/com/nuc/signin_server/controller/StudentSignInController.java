@@ -1,6 +1,7 @@
 package com.nuc.signin_server.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.nuc.signin_server.entity.Course;
 import com.nuc.signin_server.entity.SelectCourse;
 import com.nuc.signin_server.entity.Student_SignIn;
 import com.nuc.signin_server.service.CourseService;
@@ -12,14 +13,14 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
@@ -157,11 +158,12 @@ public class StudentSignInController {
     }
 
     @RequestMapping("downloadResult")
-    public HashMap<String, Object> downloadResult(Integer courseId) {
+    public HashMap<String, Object> downloadResult(Integer courseId, HttpServletResponse response) {
+        HashMap<String, Object> map = new HashMap<>();
         // 先初始化信息，对名单进行初始化
         String[] title = {"学号", "姓名", "性别"};
         // 初始化一些数据
-
+        Course course = courseService.select(courseId);
         List<SelectCourse> selectCourses = selectCourseService.getStudentList(courseId);// 学生信息
         List<Integer> signInIdList = signInService.getSignInIdList(courseId); // 签到次数的信息
         // 获取文件名
@@ -169,10 +171,12 @@ public class StudentSignInController {
         String fileName = namePath.substring(namePath.lastIndexOf("/") + 1);// linux
 //        String fileName = namePath.substring(namePath.lastIndexOf("\\") + 1);
         System.out.println("file = " + fileName);
-         String filePath = "/code/Signin_Server/ScoreList/"; // linux 上的文件
+        String filePath = "/code/Signin_Server/ScoreList/" + fileName; // linux 上的文件
 //        String filePath = "D:\\ScoreList\\" + fileName;
+        File file = new File(filePath);
+
+        // 对 xls 文件进行处理
         try {
-            File file = new File(filePath);
             file.createNewFile();
             // 创建工作簿
             WritableWorkbook workbook = Workbook.createWorkbook(file);
@@ -220,9 +224,46 @@ public class StudentSignInController {
             //关闭连接
             workbook.close();
             //将写入数据库
-            courseService.updateScoreList(courseId,filePath);
+            courseService.updateScoreList(courseId, filePath);
+
         } catch (IOException | WriteException e) {
             e.printStackTrace();
+        }
+
+        if (file.exists()) {// 判断文件父目录是否存在
+            FileInputStream fis = null; //文件输入流
+            BufferedInputStream bis = null;
+
+            OutputStream os = null; //输出流
+            try {
+                String realFileName = course.getClassId() + "-" + course.getCourseName();
+                response.setContentType("application/force-download");
+                response.setHeader("Content-disposition",
+                        "attachment; filename=" + new String(realFileName.getBytes(StandardCharsets.UTF_8), "ISO8859-1"));
+
+                byte[] buffer = new byte[1024];
+
+                os = response.getOutputStream();
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer);
+                    i = bis.read(buffer);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("----------file download:" + fileName);
+            try {
+                bis.close();
+                fis.close();
+                map.put("result", "success");
+                return map;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
