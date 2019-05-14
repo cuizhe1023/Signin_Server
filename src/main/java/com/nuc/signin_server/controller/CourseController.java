@@ -131,7 +131,8 @@ public class CourseController {
     @RequestMapping("/download")
     public String downloadFile(HttpServletResponse response) {
         String filename = "template.xls";
-        String filePath = "F:/";
+//        String filePath = "F:/";
+                String filePath = "/code/Signin_Server/src/main/resources/";
         File file = new File(filePath + filename);
         if (file.exists()) {// 判断文件父目录是否存在
             response.setContentType("application/force-download");
