@@ -52,9 +52,17 @@ public interface StudentSignInMapper {
             "WHERE SignInId=#{signInId} AND SignStatus=1")
     int getCountSignInStudentNumber(Integer signInId);
 
-    @Update("UPDATE student_signin " +
-            "SET LeaveReason=#{leaveReason} " +
-            "WHERE SignInId=#{signInId} AND StudentId=#{studentId}")
+    @Update("<script>" +
+            "UPDATE student_signin " +
+            "SET " +
+            "<if test=\"leaveReason!=null\">" +
+            "LeaveReason=#{leaveReason} " +
+            "</if>" +
+            "<if test=\"leaveReason==null\">" +
+            "SignStatus = 1" +
+            "</if>" +
+            "WHERE SignInId=#{signInId} AND StudentId=#{studentId}" +
+            "</script>")
     int updateReason(Integer signInId, String studentId, String leaveReason);
 
     @Select("SELECT LeaveReason FROM student_signin WHERE SignInId=#{signInId} AND StudentId=#{studentId}")
