@@ -40,8 +40,9 @@ public class StudentController {
         }
         if (res != 0) {
             System.out.println(student.toString() + " 注册成功！");
+            return student;
         }
-        return student;
+        return null;
     }
 
     @RequestMapping("findById")

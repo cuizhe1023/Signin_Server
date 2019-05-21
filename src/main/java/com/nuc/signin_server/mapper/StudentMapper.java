@@ -17,7 +17,7 @@ public interface StudentMapper {
     @Select("SELECT * FROM student WHERE studentId=#{studentId} AND studentPassword=#{studentPassword}")
     Student getStudentByIdAndPassword(String studentId,String studentPassword);
 
-    @Insert("INSERT INTO student VALUES(#{studentId},#{studentName},#{studentPassword},#{classId},#{gender},#{macAddress})")
+    @Insert("INSERT INTO student VALUES(#{studentId},#{studentName},#{studentPassword},#{classId},#{gender},#{serialNumber})")
     int insertStudent(Student student);
 
     @Update("UPDATE student SET serialNumber=#{serialNumber} WHERE studentId=#{studentId}")
